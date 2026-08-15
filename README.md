@@ -1,47 +1,112 @@
-# DSH 桌面版（绿色版）
+# DSH Desktop — DeepSeek Harness 桌面版
 
-DeepSeek Harness（`@deepseek-ai/dsh`）的 Electron 桌面壳，完全自包含、免安装。
+[English](#english) | [中文](#中文)
 
-## 目录结构
+---
+
+<a id="english"></a>
+## English
+
+A **portable desktop app** for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) — the agent harness by DeepSeek AI, wrapped in an Electron shell. Double-click an icon and get the full Web UI in its own window: no browser tab, no terminal, no Node.js installation required.
+
+> Community project, not affiliated with DeepSeek AI. The harness itself is consumed as an npm dependency — this repo contains zero harness source code, so upgrading to a new `dsh` release is a one-line dependency bump.
+
+### Features
+
+- 🟢 **Fully portable ("green") build** — no installer, no registry writes; copy the folder anywhere
+- 📦 **Self-contained** — bundles its own Node.js runtime + `@deepseek-ai/dsh` + all dependencies
+- 🔌 **Dynamic port** — spawns `dsh web --port 0`, never conflicts with anything
+- 1️⃣ **Single instance** — launching again just focuses the existing window
+- 🧹 **Clean teardown** — closing the window kills the whole server process tree; crashes show a dialog with logs
+- 🤝 **Shares sessions** with the CLI version (`~/.dsh`)
+
+### How it works
 
 ```
-C:\Users\zouzhe1\dsh-desktop\
-├── DSH桌面版.exe            # 主程序（Electron，双击运行）
-├── *.dll / locales / ...     # Electron 运行库
-├── resources\
-│   └── app\                  # 桌面壳应用（main.js + 图标）
-└── server\                   # 内置服务运行时
-    ├── node.exe              # Node.js v22.23.2（无需系统安装 Node）
-    └── node_modules\         # @deepseek-ai/dsh 0.1.0-rc.6 及全部依赖
+DSH桌面版.exe (Electron)
+ ├─ shows a loading page
+ ├─ spawns server\node.exe …\dsh\lib\bin.js web --port 0
+ └─ on ready, loads http://127.0.0.1:<port> in the window
 ```
 
-## 工作原理
+The `/api` browser-trust fence accepts the window's origin (`127.0.0.1:<port>`) exactly like a normal browser tab — no harness patches needed.
 
-1. 双击 exe → Electron 启动，先显示加载页
-2. 主进程用内置 `server\node.exe` 拉起 `dsh web --port 0`（随机空闲端口，不冲突）
-3. 服务就绪后窗口自动加载 `http://127.0.0.1:<port>`
-4. 关闭窗口时自动清理服务进程树
+### Build from source
 
-会话数据保存在 `%USERPROFILE%\.dsh`（与命令行版 `npx @deepseek-ai/dsh web` 共用）。
+Requirements: git, Node.js ≥ 22.15 (for running the build), npm.
 
-## 特性
+```bash
+git clone https://github.com/<your-username>/dsh-desktop.git
+cd dsh-desktop
+tools/build.sh              # assembles dist/dsh-desktop/ (≈760 MB)
+tools/make-shortcut.ps1     # optional: desktop shortcut (Windows)
+```
 
-- ✅ 免安装、不写注册表，整个文件夹可拷贝到任意位置（拷贝后需重建快捷方式）
-- ✅ 不依赖系统 Node.js（内置 node.exe）
-- ✅ 单实例：重复双击只聚焦已有窗口
-- ✅ 异常退出保护：服务崩溃时弹窗提示并附日志
+`build.sh` downloads Electron + Node.js from npmmirror by default (override with `ELECTRON_MIRROR` / `NODE_MIRROR` / `NODE_VERSION` env vars), installs `@deepseek-ai/dsh`, and assembles the portable folder.
 
-## 升级 dsh
+### Keep dsh up to date
 
-在源码目录 `ZCodeProject\dsh-desktop\server\` 里改 `package.json` 的版本号后
-`npm install`，然后把 `server\node_modules` 覆盖到绿色版的 `server\` 目录即可。
+```bash
+tools/update-dsh.sh         # checks npm for the latest dsh, bumps, reinstalls,
+                            # and syncs into the portable folder
+```
 
-## 源码
+Note: `dsh` is currently at `0.1.0-rc` — release candidates may contain breaking changes; smoke-test after upgrading.
 
-源码与构建脚本位于 `C:\Users\zouzhe1\ZCodeProject\dsh-desktop\`：
+### Repo layout
 
-- `app\main.js` — Electron 主进程
-- `tools\draw-icon.ps1` + `tools\pack-ico.js` — 图标生成
-- `tools\make-shortcut.ps1` — 桌面快捷方式
-- `electron\` — Electron 发行包暂存
-- `server\` — dsh 运行时依赖暂存
+```
+app/       Electron main process + window icon (ships as resources/app)
+electron/  staging for the official Electron distribution
+server/    bundled Node runtime target + dsh dependency (package.json)
+tools/     build.sh · update-dsh.sh · draw-icon.ps1 · pack-ico.js · make-shortcut.ps1
+docs/      upstream discussion draft
+```
+
+### License
+
+MIT. DeepSeek Harness is © DeepSeek AI, MIT — see [their repository](https://github.com/deepseek-ai/deepseek-harness).
+
+---
+
+<a id="中文"></a>
+## 中文
+
+[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（`dsh`）的**绿色版桌面应用**：Electron 壳 + 内置 Node.js 运行时 + 内置 dsh。双击图标即可在独立窗口使用完整 Web UI，无需浏览器、终端、系统 Node。
+
+> 社区项目，与 DeepSeek AI 无官方关系。harness 以 npm 依赖形式消费，本仓库不含其源码——升级 dsh 只需改一行版本号。
+
+### 工作原理
+
+主进程用内置 `node.exe` 拉起 `dsh web --port 0`（随机空闲端口），就绪后窗口加载 `http://127.0.0.1:<端口>`；关闭窗口自动清理服务进程树。会话数据与命令行版共用 `~/.dsh`。
+
+### 从源码构建
+
+```bash
+git clone https://github.com/<你的用户名>/dsh-desktop.git
+cd dsh-desktop
+tools/build.sh              # 组装 dist/dsh-desktop/（约 760 MB）
+tools/make-shortcut.ps1     # 可选：创建桌面快捷方式（Windows）
+```
+
+### 升级 dsh
+
+```bash
+tools/update-dsh.sh         # 自动检查最新版 → 确认 → 安装 → 同步到绿色版目录
+```
+
+注意：dsh 目前是 `0.1.0-rc` 版本，rc 可能有破坏性变更，升级后建议先试用。
+
+### 目录结构
+
+```
+app/       Electron 主进程 + 图标（构建后位于 resources/app）
+electron/  Electron 发行包暂存
+server/    内置运行时目标目录 + dsh 依赖声明
+tools/     构建、升级、图标、快捷方式脚本
+docs/      给官方的 Discussions 草稿
+```
+
+### 许可
+
+MIT。

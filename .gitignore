@@ -2,6 +2,10 @@
 electron/node_modules/
 server/node_modules/
 
+# 构建产物
+build/
+dist/
+
 # 图标中间产物（tools/draw-icon.ps1 可重新生成）
 icons/*.png
 
