@@ -4,7 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 # 绿色版安装位置（移动过文件夹的话改这里）
-PORTABLE_DIR="${PORTABLE_DIR:-C:/Users/zouzhe1/dsh-desktop}"
+PORTABLE_DIR="${PORTABLE_DIR:-$HOME/dsh-desktop}"
 
 cd server
 LATEST=$(npm view @deepseek-ai/dsh version)

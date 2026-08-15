@@ -1,7 +1,7 @@
 ﻿# 创建桌面快捷方式（用户级，无需管理员）
 $ErrorActionPreference = 'Stop'
 
-$root = 'C:\Users\zouzhe1\dsh-desktop'
+$root = Join-Path $env:USERPROFILE 'dsh-desktop'
 $exe  = Join-Path $root 'DSH桌面版.exe'
 $ico  = Join-Path $root 'resources\app\icon.ico'
 
