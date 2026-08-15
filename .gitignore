@@ -1,0 +1,11 @@
+# 构建暂存（可随时重新下载/安装）
+electron/node_modules/
+server/node_modules/
+
+# 图标中间产物（tools/draw-icon.ps1 可重新生成）
+icons/*.png
+
+# 系统文件
+Thumbs.db
+Desktop.ini
+.DS_Store

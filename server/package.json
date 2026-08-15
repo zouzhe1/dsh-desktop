@@ -1,0 +1,9 @@
+{
+  "name": "dsh-desktop-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "内置的 dsh 服务运行时（node.exe + node_modules）",
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.1.0-rc.6"
+  }
+}

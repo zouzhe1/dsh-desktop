@@ -1,0 +1,9 @@
+{
+  "name": "dsh-desktop-electron",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Electron 发行包暂存（仅用于获取 dist 文件）",
+  "dependencies": {
+    "electron": "^43.4.0"
+  }
+}

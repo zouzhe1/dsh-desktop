@@ -1,0 +1,9 @@
+{
+  "name": "dsh-desktop",
+  "productName": "DSH 桌面版",
+  "version": "1.0.0",
+  "description": "DeepSeek Harness 桌面版（绿色版）— Electron 壳 + 内置 Node 运行时 + 内置 dsh",
+  "main": "main.js",
+  "author": "zouzhe1",
+  "license": "MIT"
+}
