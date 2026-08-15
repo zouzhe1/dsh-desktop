@@ -21,7 +21,7 @@ DSH Desktop v1.1.0 — slim build with first-run setup wizard
 
 | Build | Zipped | Best for |
 |---|---|---|
-| **Slim** `…-slim.zip` (recommended) | ~150 MB | Most users — first-run wizard auto-detects your environment, reuses system Node.js if present, downloads the rest from your region's mirror (npmmirror in China, official sources elsewhere) |
+| **Standard** `…win-x64.zip` (recommended) | ~138 MB | Most users — first-run wizard auto-detects your environment, reuses system Node.js if present, downloads the rest from your region's mirror (npmmirror in China, official sources elsewhere) |
 | **Full** `…-portable.zip` | ~250 MB | Fully offline machines — everything bundled |
 
 **Install (3 steps):**
@@ -42,7 +42,7 @@ DSH Desktop v1.1.0 — slim build with first-run setup wizard
 
 | 版本 | 压缩包 | 适合 |
 |---|---|---|
-| **精简版** `…-slim.zip`（推荐） | 约 150 MB | 大多数用户——首启向导自动检测环境，有系统 Node 直接复用，缺的从地区镜像下载（中国走 npmmirror，其他地区走官方源） |
+| **精简版** `…win-x64.zip`（推荐） | 约 138 MB | 大多数用户——首启向导自动检测环境，有系统 Node 直接复用，缺的从地区镜像下载（中国走 npmmirror，其他地区走官方源） |
 | **完整版** `…-portable.zip` | 约 250 MB | 完全离线的机器——全部内置 |
 
 **安装（三步）：**
