@@ -2,7 +2,7 @@
 
 [简体中文](README.md) | **English**
 
-> An independent community project, not affiliated with DeepSeek AI. [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) is open-sourced by DeepSeek AI under the MIT license and used here as a dependency. See [License & credits](#license--credits).
+> Built on [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (open-sourced by DeepSeek AI, MIT) and maintained by the community, this project wraps it into a double-click desktop experience. See [License & credits](#license--credits) for component ownership.
 
 A desktop app for DeepSeek Harness: **double-click one icon, use the full Web UI in its own window.** No browser, no terminal, no Node.js installation needed.
 

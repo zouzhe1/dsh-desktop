@@ -2,7 +2,7 @@
 
 **简体中文** | [English](README.en.md)
 
-> 本项目为独立社区项目，与 DeepSeek AI 无关联。[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（`dsh`）由 DeepSeek AI 以 MIT 许可开源，本项目将其作为依赖打包使用，详见[许可与致谢](#许可与致谢)。
+> 本项目基于 DeepSeek AI 开源的 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（MIT）封装而成，由社区开发维护，让 Harness 拥有双击即用的桌面体验。各组件的许可归属详见[许可与致谢](#许可与致谢)。
 
 DeepSeek Harness 的桌面应用：**双击一个图标，在独立窗口里使用完整的 Web 界面。** 不需要浏览器、不需要终端、不需要预装 Node.js。
 
