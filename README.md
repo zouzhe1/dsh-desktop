@@ -1,112 +1,93 @@
-# DSH Desktop — DeepSeek Harness 桌面版
+# DSH Desktop
 
-[English](#english) | [中文](#中文)
+**English** | [简体中文](README.zh-CN.md)
+
+> ⚠️ **This is an independent community project.**
+> It is **not** made by, affiliated with, or endorsed by DeepSeek AI.
+> [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) is developed by DeepSeek AI under the MIT license and is bundled here only as a dependency. "DeepSeek" and related names belong to their respective owners.
+
+A desktop app for DeepSeek Harness: **double-click one icon, use the full Web UI in its own window.** No browser, no terminal, no Node.js installation needed.
 
 ---
 
-<a id="english"></a>
-## English
+## Get started (for everyone)
 
-A **portable desktop app** for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) — the agent harness by DeepSeek AI, wrapped in an Electron shell. Double-click an icon and get the full Web UI in its own window: no browser tab, no terminal, no Node.js installation required.
+1. **Download** the latest release ZIP from the [Releases](../../releases) page.
+2. **Extract** it to any folder (e.g. `C:\dsh-desktop`). Keep all files together.
+3. **Double-click `DSH桌面版.exe`** — the only `.exe` in the folder.
 
-> Community project, not affiliated with DeepSeek AI. The harness itself is consumed as an npm dependency — this repo contains zero harness source code, so upgrading to a new `dsh` release is a one-line dependency bump.
+That's it. On first launch you'll see a loading screen for a few seconds while the background service starts, then the app opens.
 
-### Features
+### Good to know
 
-- 🟢 **Fully portable ("green") build** — no installer, no registry writes; copy the folder anywhere
-- 📦 **Self-contained** — bundles its own Node.js runtime + `@deepseek-ai/dsh` + all dependencies
-- 🔌 **Dynamic port** — spawns `dsh web --port 0`, never conflicts with anything
-- 1️⃣ **Single instance** — launching again just focuses the existing window
-- 🧹 **Clean teardown** — closing the window kills the whole server process tree; crashes show a dialog with logs
-- 🤝 **Shares sessions** with the CLI version (`~/.dsh`)
+| Question | Answer |
+|---|---|
+| Where are my chats saved? | `C:\Users\<you>\.dsh` — shared with the CLI (`npx @deepseek-ai/dsh web`) |
+| Can I move the folder later? | Yes, the whole folder is portable. If you made a desktop shortcut, recreate it after moving. |
+| Can I run two copies at once? | No — starting it again just focuses the existing window. |
+| Which port does it use? | A random free port each launch. Nothing to configure, never conflicts. |
+| Antivirus complains? | The app is fully local (no telemetry). Renamed Electron binaries occasionally trigger heuristic warnings; false positive. |
+
+### Update to a newer version
+
+Download the new release ZIP, extract, and replace your old folder. Your chats live outside the app folder, so they are untouched.
+
+---
+
+## For developers
+
+### Build from source
+
+Requirements: git, Node.js ≥ 22.15, npm (Git Bash on Windows).
+
+```bash
+git clone https://github.com/<your-username>/dsh-desktop.git
+cd dsh-desktop
+tools/build.sh        # assembles dist/dsh-desktop/ (~760 MB)
+```
+
+Optional: create a desktop shortcut with `tools/make-shortcut.ps1` (edit the path inside first).
+
+`build.sh` downloads Electron and Node.js from [npmmirror](https://npmmirror.com/mirrors/) by default — override with `ELECTRON_MIRROR`, `NODE_MIRROR`, `NODE_VERSION` env vars.
+
+### Keep `dsh` up to date
+
+```bash
+tools/update-dsh.sh   # checks npm for the latest dsh → bumps → reinstalls → syncs
+```
+
+> `dsh` is currently at `0.1.0-rc`; release candidates may contain breaking changes — smoke-test after upgrading.
 
 ### How it works
 
 ```
 DSH桌面版.exe (Electron)
  ├─ shows a loading page
- ├─ spawns server\node.exe …\dsh\lib\bin.js web --port 0
- └─ on ready, loads http://127.0.0.1:<port> in the window
+ ├─ starts server\node.exe → dsh web --port 0   (random free port)
+ └─ loads http://127.0.0.1:<port> in the window
 ```
 
-The `/api` browser-trust fence accepts the window's origin (`127.0.0.1:<port>`) exactly like a normal browser tab — no harness patches needed.
+Zero patches to harness code: the `/api` trust fence accepts the window's `127.0.0.1:<port>` origin exactly like a browser tab.
 
-### Build from source
-
-Requirements: git, Node.js ≥ 22.15 (for running the build), npm.
-
-```bash
-git clone https://github.com/<your-username>/dsh-desktop.git
-cd dsh-desktop
-tools/build.sh              # assembles dist/dsh-desktop/ (≈760 MB)
-tools/make-shortcut.ps1     # optional: desktop shortcut (Windows)
-```
-
-`build.sh` downloads Electron + Node.js from npmmirror by default (override with `ELECTRON_MIRROR` / `NODE_MIRROR` / `NODE_VERSION` env vars), installs `@deepseek-ai/dsh`, and assembles the portable folder.
-
-### Keep dsh up to date
-
-```bash
-tools/update-dsh.sh         # checks npm for the latest dsh, bumps, reinstalls,
-                            # and syncs into the portable folder
-```
-
-Note: `dsh` is currently at `0.1.0-rc` — release candidates may contain breaking changes; smoke-test after upgrading.
-
-### Repo layout
+### Repository layout
 
 ```
-app/       Electron main process + window icon (ships as resources/app)
+app/       Electron main process + window icon
 electron/  staging for the official Electron distribution
-server/    bundled Node runtime target + dsh dependency (package.json)
-tools/     build.sh · update-dsh.sh · draw-icon.ps1 · pack-ico.js · make-shortcut.ps1
+server/    dsh dependency (package.json) + bundled Node runtime target
+tools/     build.sh · update-dsh.sh · icon & shortcut scripts
 docs/      upstream discussion draft
 ```
 
-### License
-
-MIT. DeepSeek Harness is © DeepSeek AI, MIT — see [their repository](https://github.com/deepseek-ai/deepseek-harness).
-
 ---
 
-<a id="中文"></a>
-## 中文
+## License & credits
 
-[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（`dsh`）的**绿色版桌面应用**：Electron 壳 + 内置 Node.js 运行时 + 内置 dsh。双击图标即可在独立窗口使用完整 Web UI，无需浏览器、终端、系统 Node。
+| Component | License | Owner |
+|---|---|---|
+| **This repository** (Electron shell, build/update scripts, docs) | MIT © 2026 zouzhe1 | this project |
+| [@deepseek-ai/dsh](https://github.com/deepseek-ai/deepseek-harness) (bundled npm dependency) | MIT © DeepSeek AI | DeepSeek AI |
+| [Electron](https://www.electronjs.org) (bundled binaries) | MIT | OpenJS Foundation & Electron contributors |
+| [Node.js](https://nodejs.org) (bundled runtime) | MIT | OpenJS Foundation |
 
-> 社区项目，与 DeepSeek AI 无官方关系。harness 以 npm 依赖形式消费，本仓库不含其源码——升级 dsh 只需改一行版本号。
-
-### 工作原理
-
-主进程用内置 `node.exe` 拉起 `dsh web --port 0`（随机空闲端口），就绪后窗口加载 `http://127.0.0.1:<端口>`；关闭窗口自动清理服务进程树。会话数据与命令行版共用 `~/.dsh`。
-
-### 从源码构建
-
-```bash
-git clone https://github.com/<你的用户名>/dsh-desktop.git
-cd dsh-desktop
-tools/build.sh              # 组装 dist/dsh-desktop/（约 760 MB）
-tools/make-shortcut.ps1     # 可选：创建桌面快捷方式（Windows）
-```
-
-### 升级 dsh
-
-```bash
-tools/update-dsh.sh         # 自动检查最新版 → 确认 → 安装 → 同步到绿色版目录
-```
-
-注意：dsh 目前是 `0.1.0-rc` 版本，rc 可能有破坏性变更，升级后建议先试用。
-
-### 目录结构
-
-```
-app/       Electron 主进程 + 图标（构建后位于 resources/app）
-electron/  Electron 发行包暂存
-server/    内置运行时目标目录 + dsh 依赖声明
-tools/     构建、升级、图标、快捷方式脚本
-docs/      给官方的 Discussions 草稿
-```
-
-### 许可
-
-MIT。
+The MIT license of this repository covers **only the code we wrote** (the shell and scripts). Bundled components remain the property of their respective owners and are redistributed under their own licenses.
