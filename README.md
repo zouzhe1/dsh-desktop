@@ -12,17 +12,29 @@ A desktop app for DeepSeek Harness: **double-click one icon, use the full Web UI
 
 ## Get started (for everyone)
 
-1. **Download** the latest release ZIP from the [Releases](../../releases) page.
+1. **Download** one of the two release ZIPs from the [Releases](../../releases) page:
+   - **Slim (recommended)** — smaller download (~150 MB zipped). On first run a setup wizard appears, checks your environment, and automatically fetches whatever is missing (a few minutes, one time only).
+   - **Full** — everything bundled (~250 MB zipped). Works completely offline, no first-run setup.
 2. **Extract** it to any folder (e.g. `C:\dsh-desktop`). Keep all files together.
 3. **Double-click `DSH桌面版.exe`** — the only `.exe` in the folder.
 
-That's it. On first launch you'll see a loading screen for a few seconds while the background service starts, then the app opens.
+That's it. With the Slim build you'll see a setup wizard on first launch:
+
+```
+① Environment check ─ already have Node.js ≥ 22.15? → reuse it, nothing to download
+② Runtime            ─ otherwise: download Node.js (~34 MB) from your region's mirror
+③ Components         ─ install dsh & dependencies via npm (one time)
+④ Launch             ─ the main window opens
+```
+
+Downloads automatically use the **China mirror (npmmirror)** when your timezone is in China, or the **official global sources** elsewhere. You can also switch mirrors manually in the wizard (useful if one is slow). Every step has a progress bar, and failures show a **Retry** button.
 
 ### Good to know
 
 | Question | Answer |
 |---|---|
 | Where are my chats saved? | `C:\Users\<you>\.dsh` — shared with the CLI (`npx @deepseek-ai/dsh web`) |
+| Does first-run setup run every time? | No — only when something is missing. Later launches go straight in (~2 s). |
 | Can I move the folder later? | Yes, the whole folder is portable. If you made a desktop shortcut, recreate it after moving. |
 | Can I run two copies at once? | No — starting it again just focuses the existing window. |
 | Which port does it use? | A random free port each launch. Nothing to configure, never conflicts. |
@@ -30,7 +42,7 @@ That's it. On first launch you'll see a loading screen for a few seconds while t
 
 ### Update to a newer version
 
-Download the new release ZIP, extract, and replace your old folder. Your chats live outside the app folder, so they are untouched.
+Download the new release ZIP, extract, and replace your old folder. Your chats live outside the app folder, so they are untouched. (Slim users: the first run of the new version re-checks and only fetches what changed.)
 
 ---
 
