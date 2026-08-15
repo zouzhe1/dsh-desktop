@@ -6,6 +6,8 @@
 
 DeepSeek Harness 的桌面应用：**双击一个图标，在独立窗口里使用完整的 Web 界面。** 不需要浏览器、不需要终端、不需要预装 Node.js。
 
+![DSH Desktop 主界面](docs/images/screenshot-main.jpg)
+
 ## 下载与安装
 
 从 [Releases 发布页](../../releases) 下载 `dsh-desktop-v1.1.0-win-x64.zip`（**138 MB**），解压到任意文件夹，双击 `DSH桌面版.exe`。

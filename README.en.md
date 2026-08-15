@@ -6,6 +6,8 @@
 
 A desktop app for DeepSeek Harness: **double-click one icon, use the full Web UI in its own window.** No browser, no terminal, no Node.js installation needed.
 
+![DSH Desktop main window](docs/images/screenshot-main.jpg)
+
 ## Download & install
 
 Download `dsh-desktop-v1.1.0-win-x64.zip` (**138 MB**) from the [Releases](../../releases) page, extract it to any folder, and double-click `DSH桌面版.exe`.
