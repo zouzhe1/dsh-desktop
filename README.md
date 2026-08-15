@@ -1,103 +1,102 @@
-# DSH Desktop
+# DSH Desktop 桌面版
 
-**English** | [简体中文](README.zh-CN.md)
+**简体中文** | [English](README.en.md)
 
-> ⚠️ **This is an independent community project.**
-> It is **not** made by, affiliated with, or endorsed by DeepSeek AI.
-> [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`) is developed by DeepSeek AI under the MIT license and is bundled here only as a dependency. "DeepSeek" and related names belong to their respective owners.
+> 本项目为独立社区项目，与 DeepSeek AI 无关联。[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（`dsh`）由 DeepSeek AI 以 MIT 许可开源，本项目将其作为依赖打包使用，详见[许可与致谢](#许可与致谢)。
 
-A desktop app for DeepSeek Harness: **double-click one icon, use the full Web UI in its own window.** No browser, no terminal, no Node.js installation needed.
+DeepSeek Harness 的桌面应用：**双击一个图标，在独立窗口里使用完整的 Web 界面。** 不需要浏览器、不需要终端、不需要预装 Node.js。
 
----
+## 下载与安装
 
-## Get started (for everyone)
+从 [Releases 发布页](../../releases) 下载 `dsh-desktop-v1.1.0-win-x64.zip`（**138 MB**），解压到任意文件夹，双击 `DSH桌面版.exe`。
 
-1. **Download** the release ZIP from the [Releases](../../releases) page (~138 MB zipped). On first run a setup wizard appears, checks your environment, and automatically fetches whatever is missing (a few minutes, one time only).
-2. **Extract** it to any folder (e.g. `C:\dsh-desktop`). Keep all files together.
-3. **Double-click `DSH桌面版.exe`** — the only `.exe` in the folder.
-
-That's it. On first launch you'll see a setup wizard:
+首次运行会出现安装向导，自动完成环境准备（仅一次）：
 
 ```
-① Environment check ─ already have Node.js ≥ 22.15? → reuse it, nothing to download
-② Runtime            ─ otherwise: download Node.js (~34 MB) from your region's mirror
-③ Components         ─ install dsh & dependencies via npm (one time)
-④ Launch             ─ the main window opens
+① 环境检查 ─ 系统已装 Node.js ≥ 22.15？→ 直接复用，跳到 ③
+② 运行时   ─ 没有？自动从地区镜像下载 Node.js（34 MB）
+③ 组件安装 ─ 通过 npm 安装 dsh 及约 530 个依赖包
+④ 启动     ─ 主界面打开
 ```
 
-Downloads automatically use the **China mirror (npmmirror)** when your timezone is in China, or the **official global sources** elsewhere. You can also switch mirrors manually in the wizard (useful if one is slow). Every step has a progress bar, and failures show a **Retry** button.
+下载源根据时区自动判定：中国时区走 npmmirror 镜像，其他地区走国际官方源；向导中可手动切换，失败可一键重试，全程进度条可视化。
 
-### Good to know
+### 体积说明
 
-| Question | Answer |
+| 项目 | 大小 |
 |---|---|
-| Where are my chats saved? | `C:\Users\<you>\.dsh` — shared with the CLI (`npx @deepseek-ai/dsh web`) |
-| Does first-run setup run every time? | No — only when something is missing. Later launches go straight in (~2 s). |
-| Can I move the folder later? | Yes, the whole folder is portable. If you made a desktop shortcut, recreate it after moving. |
-| Can I run two copies at once? | No — starting it again just focuses the existing window. |
-| Which port does it use? | A random free port each launch. Nothing to configure, never conflicts. |
-| Antivirus complains? | The app is fully local (no telemetry). Renamed Electron binaries occasionally trigger heuristic warnings; false positive. |
+| 下载的压缩包 | 138 MB |
+| 解压后 | 348 MB（Electron 壳及应用） |
+| 首次运行自动获取 | Node.js 约 34 MB（压缩包）+ dsh 依赖约 330 MB |
+| 全部就绪后总占用 | 约 780 MB |
+| 之后每次启动 | 约 2 秒，不再联网下载 |
 
-### Update to a newer version
+### 常见问题
 
-Download the new release ZIP, extract, and replace your old folder. Your chats live outside the app folder, so they are untouched. (The first run of the new version re-checks and only fetches what changed.)
+| 问题 | 答案 |
+|---|---|
+| 会改动我的系统环境吗？ | 不会。所有组件都在应用文件夹内；借用系统 Node 时只执行、不修改；不写注册表、不改环境变量。删除文件夹即完全卸载。 |
+| 我的聊天记录存在哪？ | `C:\Users\<用户名>\.dsh`，与命令行版（`npx @deepseek-ai/dsh web`）共用。 |
+| 每次启动都要检查/下载吗？ | 不用，只有缺组件才触发，之后启动直达界面（约 2 秒）。 |
+| 能搬走文件夹或重装系统吗？ | 文件夹整体移动没问题（重建桌面快捷方式即可）；聊天记录在文件夹外，不受影响。 |
+| 能同时开两个窗口吗？ | 不能，再次双击会聚焦到已打开的窗口。 |
+| 用什么端口？ | 每次启动自动选用空闲端口，零配置、不冲突。 |
+| 杀毒软件报警？ | 应用完全本地运行、无遥测，改名的 Electron 程序偶发启发式误报。 |
 
----
+### 升级新版本
 
-## For developers
+下载新的 release 压缩包，解压后替换旧文件夹即可。首次运行会自动检查，只下载有变化的部分。
 
-### Build from source
+## 开发者
 
-Requirements: git, Node.js ≥ 22.15, npm (Git Bash on Windows).
+### 从源码构建
+
+环境要求：git、Node.js ≥ 22.15、npm（Windows 下使用 Git Bash）。
 
 ```bash
-git clone https://github.com/<your-username>/dsh-desktop.git
+git clone https://github.com/zouzhe1/dsh-desktop.git
 cd dsh-desktop
-tools/build.sh        # assembles dist/dsh-desktop/ (~760 MB)
+tools/build.sh        # 组装 dist/dsh-desktop/（约 348 MB）
 ```
 
-Optional: create a desktop shortcut with `tools/make-shortcut.ps1` (edit the path inside first).
+构建默认从 npmmirror 镜像下载 Electron 与 Node.js，可用环境变量 `ELECTRON_MIRROR`、`NODE_MIRROR`、`NODE_VERSION` 覆盖。如需完全离线的全内置版本，运行 `tools/build.sh full`（约 760 MB，自带 Node 运行时与全部依赖）。
 
-`build.sh` downloads Electron and Node.js from [npmmirror](https://npmmirror.com/mirrors/) by default — override with `ELECTRON_MIRROR`, `NODE_MIRROR`, `NODE_VERSION` env vars.
-
-### Keep `dsh` up to date
+### 跟进上游 dsh 新版本
 
 ```bash
-tools/update-dsh.sh   # checks npm for the latest dsh → bumps → reinstalls → syncs
+tools/update-dsh.sh   # 检查 npm 最新版 → 确认 → 升级 → 同步
 ```
 
-> `dsh` is currently at `0.1.0-rc`; release candidates may contain breaking changes — smoke-test after upgrading.
+dsh 目前处于 `0.1.0-rc` 阶段，候选版本可能包含破坏性变更，升级后建议先试用。
 
-### How it works
+### 工作原理
 
 ```
 DSH桌面版.exe (Electron)
- ├─ shows a loading page
- ├─ starts server\node.exe → dsh web --port 0   (random free port)
- └─ loads http://127.0.0.1:<port> in the window
+ ├─ 首次运行：向导检查环境，补齐运行时与依赖
+ ├─ 启动 server\node.exe → dsh web --port 0（随机空闲端口）
+ └─ 窗口加载 http://127.0.0.1:<端口>
 ```
 
-Zero patches to harness code: the `/api` trust fence accepts the window's `127.0.0.1:<port>` origin exactly like a browser tab.
+未修改 harness 的任何代码：`/api` 信任防线接受的正是窗口的 `127.0.0.1:<端口>` 来源，与浏览器标签页一致。
 
-### Repository layout
+### 仓库结构
 
 ```
-app/       Electron main process + window icon
-electron/  staging for the official Electron distribution
-server/    dsh dependency (package.json) + bundled Node runtime target
-tools/     build.sh · update-dsh.sh · icon & shortcut scripts
-docs/      upstream discussion draft
+app/       Electron 主进程 + 预加载脚本 + 图标
+electron/  Electron 官方发行包暂存
+server/    dsh 依赖声明 + 运行时下载目标
+tools/     build.sh · update-dsh.sh · 图标与快捷方式脚本
+docs/      发布说明、上游 Discussions 草稿
 ```
 
----
+## 许可与致谢
 
-## License & credits
-
-| Component | License | Owner |
+| 组成部分 | 许可证 | 归属 |
 |---|---|---|
-| **This repository** (Electron shell, build/update scripts, docs) | MIT © 2026 zouzhe1 | this project |
-| [@deepseek-ai/dsh](https://github.com/deepseek-ai/deepseek-harness) (bundled npm dependency) | MIT © DeepSeek AI | DeepSeek AI |
-| [Electron](https://www.electronjs.org) (bundled binaries) | MIT | OpenJS Foundation & Electron contributors |
-| [Node.js](https://nodejs.org) (bundled runtime) | MIT | OpenJS Foundation |
+| 本仓库（Electron 壳、构建/升级脚本、文档） | MIT © 2026 zouzhe1 | 本项目 |
+| [@deepseek-ai/dsh](https://github.com/deepseek-ai/deepseek-harness)（作为依赖打包） | MIT © DeepSeek AI | DeepSeek AI |
+| [Electron](https://www.electronjs.org)（发行包） | MIT | OpenJS Foundation 及贡献者 |
+| [Node.js](https://nodejs.org)（运行时） | MIT | OpenJS Foundation |
 
-The MIT license of this repository covers **only the code we wrote** (the shell and scripts). Bundled components remain the property of their respective owners and are redistributed under their own licenses.
+本仓库的 MIT 许可证只覆盖我们自己编写的代码（外壳与脚本）；打包在内的各组件归各自权利人所有，按其自身许可分发。

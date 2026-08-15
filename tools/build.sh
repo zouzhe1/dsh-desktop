@@ -44,7 +44,7 @@ mkdir -p "$OUT/resources/app" "$OUT/server"
 cp -r "$ROOT/electron/node_modules/electron/dist/." "$OUT/"
 mv "$OUT/electron.exe" "$OUT/DSH桌面版.exe"
 cp "$ROOT"/app/* "$OUT/resources/app/"          # main.js / preload.js / package.json / icon.ico
-cp "$ROOT/README.md" "$ROOT/README.zh-CN.md" "$ROOT/LICENSE" "$OUT/"
+cp "$ROOT/README.md" "$ROOT/README.en.md" "$ROOT/LICENSE" "$OUT/"
 
 if [ "$MODE" = "full" ]; then
   # 全内置版：内置运行时 + 全部依赖
