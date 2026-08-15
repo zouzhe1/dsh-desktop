@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# 一键构建绿色版，两种形态：
-#   tools/build.sh          完整版（内置 Node + dsh 依赖，开箱即用，约 760MB）
-#   tools/build.sh slim     精简版（仅 Electron 壳，首次运行自动检查环境并按地区镜像下载，约 350MB）
+# 一键构建绿色版：
+#   tools/build.sh          标准版（仅 Electron 壳，约 348MB；首次运行向导自动装依赖，发布用这个）
+#   tools/build.sh full     全内置版（Node + dsh 依赖全打包，约 760MB；仅离线场景自用）
 # 可用环境变量覆盖：
 #   ELECTRON_MIRROR  Electron 二进制镜像（默认 npmmirror）
 #   NODE_MIRROR      Node 二进制镜像（默认 npmmirror）
 #   NODE_VERSION     内置 Node 版本（默认 22.23.2，需 >= 22.15 才有 zstd API）
-#   OUT              输出目录（默认 <仓库根>/dist/dsh-desktop[-slim]）
+#   OUT              输出目录（默认 <仓库根>/dist/dsh-desktop[-full]）
 set -e
 cd "$(dirname "$0")/.."
 ROOT="$PWD"
 
-MODE="${1:-full}"
-if [ "$MODE" = "slim" ]; then OUT_DEFAULT="$ROOT/dist/dsh-desktop-slim"; else OUT_DEFAULT="$ROOT/dist/dsh-desktop"; fi
+MODE="${1:-slim}"
+if [ "$MODE" = "full" ]; then OUT_DEFAULT="$ROOT/dist/dsh-desktop-full"; else OUT_DEFAULT="$ROOT/dist/dsh-desktop"; fi
 OUT="${OUT:-$OUT_DEFAULT}"
 
 ELECTRON_MIRROR="${ELECTRON_MIRROR:-https://npmmirror.com/mirrors/electron/}"
@@ -46,14 +46,14 @@ mv "$OUT/electron.exe" "$OUT/DSH桌面版.exe"
 cp "$ROOT"/app/* "$OUT/resources/app/"          # main.js / preload.js / package.json / icon.ico
 cp "$ROOT/README.md" "$ROOT/README.zh-CN.md" "$ROOT/LICENSE" "$OUT/"
 
-if [ "$MODE" = "slim" ]; then
-  # 精简版：只带依赖声明，首次运行时向导自动安装
-  cp "$ROOT/server/package.json" "$ROOT/server/package-lock.json" "$OUT/server/"
-else
-  # 完整版：内置运行时 + 全部依赖
+if [ "$MODE" = "full" ]; then
+  # 全内置版：内置运行时 + 全部依赖
   cp "$ROOT/build/$NODE_ZIP/node.exe" "$OUT/server/"
   cp -r "$ROOT/server/node_modules" "$OUT/server/node_modules"
+else
+  # 标准版：只带依赖声明，首次运行时向导自动安装
+  cp "$ROOT/server/package.json" "$ROOT/server/package-lock.json" "$OUT/server/"
 fi
 
 echo ""
-echo "构建完成 ✅  $OUT ($([ "$MODE" = "slim" ] && echo 精简版-首次运行自动装依赖 || echo 完整版-开箱即用))"
+echo "构建完成 ✅  $OUT ($([ "$MODE" = "full" ] && echo 全内置版-离线自用 || echo 标准版-发布用))"

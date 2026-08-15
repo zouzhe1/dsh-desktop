@@ -12,13 +12,11 @@ A desktop app for DeepSeek Harness: **double-click one icon, use the full Web UI
 
 ## Get started (for everyone)
 
-1. **Download** one of the two release ZIPs from the [Releases](../../releases) page:
-   - **Slim (recommended)** — smaller download (~150 MB zipped). On first run a setup wizard appears, checks your environment, and automatically fetches whatever is missing (a few minutes, one time only).
-   - **Full** — everything bundled (~250 MB zipped). Works completely offline, no first-run setup.
+1. **Download** the release ZIP from the [Releases](../../releases) page (~138 MB zipped). On first run a setup wizard appears, checks your environment, and automatically fetches whatever is missing (a few minutes, one time only).
 2. **Extract** it to any folder (e.g. `C:\dsh-desktop`). Keep all files together.
 3. **Double-click `DSH桌面版.exe`** — the only `.exe` in the folder.
 
-That's it. With the Slim build you'll see a setup wizard on first launch:
+That's it. On first launch you'll see a setup wizard:
 
 ```
 ① Environment check ─ already have Node.js ≥ 22.15? → reuse it, nothing to download
@@ -42,7 +40,7 @@ Downloads automatically use the **China mirror (npmmirror)** when your timezone 
 
 ### Update to a newer version
 
-Download the new release ZIP, extract, and replace your old folder. Your chats live outside the app folder, so they are untouched. (Slim users: the first run of the new version re-checks and only fetches what changed.)
+Download the new release ZIP, extract, and replace your old folder. Your chats live outside the app folder, so they are untouched. (The first run of the new version re-checks and only fetches what changed.)
 
 ---
 
