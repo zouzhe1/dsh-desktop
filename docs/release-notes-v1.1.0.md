@@ -11,26 +11,6 @@ DSH Desktop v1.1.0 — first-run setup wizard, 44% smaller download
 
 ## 正文
 
-### English
-
-**DSH Desktop v1.1.0** — a much smaller download that sets itself up on first run. 🪶
-
-> ⚠️ Independent community project — not affiliated with or endorsed by DeepSeek AI. See [README](../../blob/main/README.md#license--credits) for license boundaries.
-
-**Download available:**
-
-| Build | Zipped | Best for |
-|---|---|---|
-| **Standard** `…win-x64.zip` (recommended) | ~138 MB | Most users — first-run wizard auto-detects your environment, reuses system Node.js if present, downloads the rest from your region's mirror (npmmirror in China, official sources elsewhere) |
-
-**Install (3 steps):**
-1. Download a ZIP below and extract to any folder
-2. Double-click `DSH桌面版.exe`
-3. Follow the setup wizard (one time, ~1–5 min depending on network)
-
-**Includes:** Electron 43.4.0 · @deepseek-ai/dsh 0.1.0-rc.6 · Node.js 22.23.2 (auto-fetched on first run)
-**Platform:** Windows x64 · Portable — no installer, no registry writes
-
 ### 中文
 
 **DSH Desktop v1.1.0** —— 下载体积大幅缩小（约 138 MB），首次运行自动配置。🪶
@@ -50,6 +30,28 @@ DSH Desktop v1.1.0 — first-run setup wizard, 44% smaller download
 
 **内置：** Electron 43.4.0 · @deepseek-ai/dsh 0.1.0-rc.6 · Node.js 22.23.2（首次运行自动获取）
 **平台：** Windows x64 · 绿色免安装，不写注册表
+
+---
+
+### English
+
+**DSH Desktop v1.1.0** — a much smaller download that sets itself up on first run. 🪶
+
+> ⚠️ Independent community project — not affiliated with or endorsed by DeepSeek AI. See [README](../../blob/main/README.md#license--credits) for license boundaries.
+
+**Download available:**
+
+| Build | Zipped | Best for |
+|---|---|---|
+| **Standard** `…win-x64.zip` (recommended) | ~138 MB | Most users — first-run wizard auto-detects your environment, reuses system Node.js if present, downloads the rest from your region's mirror (npmmirror in China, official sources elsewhere) |
+
+**Install (3 steps):**
+1. Download a ZIP below and extract to any folder
+2. Double-click `DSH桌面版.exe`
+3. Follow the setup wizard (one time, ~1–5 min depending on network)
+
+**Includes:** Electron 43.4.0 · @deepseek-ai/dsh 0.1.0-rc.6 · Node.js 22.23.2 (auto-fetched on first run)
+**Platform:** Windows x64 · Portable — no installer, no registry writes
 
 ---
 
